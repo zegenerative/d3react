@@ -2,5 +2,10 @@
 @import './variables.css';
 
 .test {
-    background-color: var(--primary_dark);
+  background-color: var(--primary_dark);
+}
+
+svg {
+  background: #eee;
+  overflow: visible;
 }
