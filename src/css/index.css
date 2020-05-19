@@ -1,0 +1,6 @@
+@import '~semantic-ui-css/semantic.css';
+@import './variables.css';
+
+.test {
+    background-color: var(--primary_dark);
+}

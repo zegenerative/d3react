@@ -1,0 +1,12 @@
+:root {
+    --primary_light: #aebfd9;
+    --primary_dark: #344b6a;
+    --secondary_light: #adb151;
+    --secondary_dark: #1e7639;
+    --tertiary_light: #c5a880;
+    --tertiary_dark: #6a5542;
+    --font-ultra_light: 'Ingra Ultra Light';
+    --font-light: 'Ingra Light';
+    --font-regular: 'Ingra Regular';
+    --font-bold: 'Ingra Bold';
+}
