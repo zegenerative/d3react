@@ -15,6 +15,12 @@ const MovieRatings = ({ movies, width, height, setMovies }) => {
 
     const yScale = d3.scaleLinear().domain([0, 10]).range([height, 0])
 
+    const xAxis = d3.axisBottom(xScale).ticks(ratings.length)
+    svg.select('.x-axis').style('transform', 'translateY(320px)').call(xAxis)
+
+    const yAxis = d3.axisLeft(yScale)
+    svg.select('.y-axis').style('transform', 'translateX(640px)').call(yAxis)
+
     svg
       .selectAll('rect')
       .data(ratings)
@@ -50,6 +56,8 @@ const MovieRatings = ({ movies, width, height, setMovies }) => {
       </button>
       <svg ref={svgRef} width={width} height={height}>
         {bars}
+        <g className="x-axis" />
+        <g className="y-axis" />
       </svg>
     </>
   )

@@ -11,8 +11,8 @@ function App() {
       <CSVreader onFileLoaded={(data) => setMovies(data)} />
       <MovieRatings
         movies={movies}
-        width={1920}
-        height={1080}
+        width={640}
+        height={320}
         setMovies={setMovies}
       />
     </div>
