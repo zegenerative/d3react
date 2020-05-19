@@ -1,47 +1,57 @@
 import React, { useEffect, useRef } from 'react'
 import * as d3 from 'd3'
 
-const MovieRatings = ({ movies }) => {
+const MovieRatings = ({ movies, width, height, setMovies }) => {
   const ratings = movies.slice(1).map((movie) => movie[1])
   const svgRef = useRef()
 
   useEffect(() => {
-    const svg = select(svgRef.current)
+    const svg = d3.select(svgRef.current)
 
     const xScale = d3
-      .scaleLinear()
-      .domain([0, ratings.length - 1])
-      .range([0, 1920])
+      .scaleBand()
+      .domain(d3.range(0, ratings.length))
+      .range([0, width])
 
-    const yScale = d3.scaleLinear().domain([8, 10]).range([1080, 0])
-
-    const xAxis = d3.axisBottom(xScale).ticks(ratings.length)
-    svg.select('.x-axis').style('transform', 'translateY(1000px)').call(xAxis)
-
-    const yAxis = d3.axisLeft(yScale)
-    svg.select('.y-axis').style('transform', 'translateX(1290px)').call(yAxis)
-
-    const myLine = d3
-      .line()
-      .x((value, index) => xScale(index))
-      .y(yScale)
-    // .curve(curveCardinal)
+    const yScale = d3.scaleLinear().domain([0, 10]).range([height, 0])
 
     svg
-      .selectAll('.line')
-      .data([ratings])
-      .join('path')
-      .attr('class', 'line')
-      .attr('d', myLine)
-      .attr('fill', 'none')
-      .attr('stroke', 'blue')
-  }, [ratings])
+      .selectAll('rect')
+      .data(ratings)
+      .transition()
+      .duration(1000)
+      .attr('x', (r, index) => xScale(index))
+      .attr('y', (r) => yScale(r))
+      .attr('width', xScale.bandwidth())
+      .attr('height', (r) => height - yScale(r))
+      .style('fill', 'blue')
+      .style('stroke', 'red')
+      .style('opacity', 0.3)
+  }, [ratings, width, height])
+
+  const bars = ratings.map((r, index) => <rect key={index} />)
 
   return (
-    <svg ref={svgRef} width={1920} height={1080}>
-      <g className="x-axis" />
-      <g className="y-axis" />
-    </svg>
+    <>
+      <button
+        onClick={() =>
+          setMovies([
+            ['test', 4],
+            ['test', 3],
+            ['test', 9.5],
+            ['test', 8],
+            ['test', 7],
+            ['test', 2],
+            ['test', 7],
+          ])
+        }
+      >
+        update
+      </button>
+      <svg ref={svgRef} width={width} height={height}>
+        {bars}
+      </svg>
+    </>
   )
 }
 

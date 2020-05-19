@@ -9,7 +9,12 @@ function App() {
   return (
     <div className="test">
       <CSVreader onFileLoaded={(data) => setMovies(data)} />
-      <MovieRatings movies={movies} />
+      <MovieRatings
+        movies={movies}
+        width={1920}
+        height={1080}
+        setMovies={setMovies}
+      />
     </div>
   )
 }
